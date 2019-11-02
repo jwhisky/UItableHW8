@@ -31,6 +31,7 @@ class HistoryTableViewController: UITableViewController{
         if let data=self.tableViewData {
             return data.count
         }
+            
         else {
             return 0
         }
@@ -42,6 +43,7 @@ class HistoryTableViewController: UITableViewController{
         if let sectionInfo = self.tableViewData?[section] {
             return sectionInfo.entries.count
         }
+            
         else {
             return 0
         }
@@ -51,11 +53,11 @@ class HistoryTableViewController: UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Fancy", for: indexPath) as! HistoryTableViewCell
-        if let entry = self.tableViewData?[indexPath.section].entries[indexPath.row] {
-            cell.conversionLabel.text = "\(entry.fromVal) \(entry.fromUnits) = \(entry.toVal) \(entry.toUnits)"
-            cell.timestampLabel.text = "\(entry.timestamp.description)"
-            cell.thumbnail.image = UIImage(imageLiteralResourceName: entry.mode == .Volume ? "volume_icon" : "length_icon")
-        }
+            if let entry = self.tableViewData?[indexPath.section].entries[indexPath.row] {
+                cell.conversionLabel.text = "\(entry.fromVal) \(entry.fromUnits) = \(entry.toVal) \(entry.toUnits)"
+                cell.timestampLabel.text = "\(entry.timestamp.description)"
+                cell.thumbnail.image = UIImage(imageLiteralResourceName: entry.mode == .Volume ? "volume_icon" : "length_icon")
+            }
         return cell
     }
     
@@ -87,11 +89,11 @@ class HistoryTableViewController: UITableViewController{
     
 
         let keys = tmpEntries.keys
-        for key in keys {
-            if let val = tmpEntries[key] {
-                tmpData.append((sectionHeader: key, entries: val))
+            for key in keys {
+                if let val = tmpEntries[key] {
+                    tmpData.append((sectionHeader: key, entries: val))
+                }
             }
-        }
         
         tmpData.sort{ (v1, v2) -> Bool in
             if v1.sectionHeader < v2.sectionHeader {
